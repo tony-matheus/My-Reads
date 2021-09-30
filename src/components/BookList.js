@@ -1,17 +1,27 @@
 import PropTypes from 'prop-types'
-import { Box, Text } from '../UI'
+import { Box, HR, Text } from '../UI'
+import { colors } from '../utils/colors'
 import { Book } from './Book'
 
 export const BookList = ({ books, title }) => {
   return (
     <Box textAlign='center'>
-      <Text fontSize='26px' fontWeight='bold'>
-        {title}
-      </Text>
+      <Box px={10}>
+        <Text
+          color={colors.white}
+          textAlign='left'
+          fontSize='26px'
+          fontWeight='bold'
+        >
+          {title}
+        </Text>
+        <HR borderColor={colors.white} />
+      </Box>
       <Box display='flex' justifyContent='center'>
         {books.map((book) => (
           <Book
             title={book.title}
+            subtitle={book.subtitle}
             authorName={book.authors[0]}
             thumbnail={book.imageLinks.thumbnail}
           />

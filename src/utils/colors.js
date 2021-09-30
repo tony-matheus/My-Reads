@@ -1,8 +1,11 @@
 export const colors = {
   red: {
-    light: '#ff6f60',
-    default: '#e53935',
-    dark: '#ab000d',
+    light: '#FC5B79',
+    default: '#B03F53',
+    dark: '#702836',
+  },
+  yellow: {
+    dark: '#B58A60',
   },
   blue: {
     light: '#6ab7ff',
@@ -10,12 +13,12 @@ export const colors = {
     dark: '#005cb2',
   },
   black: {
-    default: '#333',
+    default: '#453940',
   },
   grey: {
     light: '#a4a4a4',
     default: '#757575',
     dark: '#494949',
   },
-  white: 'white',
+  white: '#F3F7F6',
 }
