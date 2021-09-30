@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { border, boxShadow, compose, space } from 'styled-system'
 import PropTypes from 'prop-types'
 import { forwardRef } from 'react'
-import { Box, Text } from '.'
+import Box from './Box'
+import Text from './Text'
 import { colors } from '../utils/colors'
 
 export const StyledInput = styled.input`

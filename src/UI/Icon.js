@@ -20,7 +20,6 @@ Icon.displayName = 'Icon'
 
 Icon.propTypes = {
   alt: PropTypes.string.isRequired,
-  src: PropTypes.string.isRequired,
 }
 
 export default Icon

@@ -25,7 +25,13 @@ export const Book = ({ title, authorName, subtitle, thumbnail }) => {
           borderRadius={5}
           boxShadow='0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);'
         >
-          <Image src={thumbnail} width='10rem' height='100%' mx='auto' />
+          <Image
+            src={thumbnail}
+            width='10rem'
+            height='100%'
+            mx='auto'
+            alt='book image'
+          />
           <Box
             position='absolute'
             bg='red'
@@ -43,15 +49,18 @@ export const Book = ({ title, authorName, subtitle, thumbnail }) => {
             height='auto'
           >
             <Text color={colors.yellow.dark} fontSize='1' fontWeight='bold'>
-              <Icon icon={faBook} mr={2} />
+              <Icon icon={faBook} mr={2} alt='book icon' />
               {title}
-              {subtitle && (
-                <Text color={colors.black.default} fontSize='14px'>
-                  {subtitle}
-                </Text>
-              )}
             </Text>
-            <Box>Author: {authorName}</Box>
+
+            {subtitle && (
+              <Text color={colors.black.default} fontSize='14px'>
+                {subtitle}
+              </Text>
+            )}
+            <Text as='span' fontSize='14px'>
+              Author: {authorName}
+            </Text>
           </Box>
         </Box>
       </Box>
@@ -61,11 +70,12 @@ export const Book = ({ title, authorName, subtitle, thumbnail }) => {
 
 Book.defaultProps = {
   subtitle: '',
+  authorName: '',
 }
 
 Book.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
-  authorName: PropTypes.string.isRequired,
+  authorName: PropTypes.string,
   thumbnail: PropTypes.string.isRequired,
 }
