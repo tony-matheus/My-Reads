@@ -6,7 +6,7 @@ import { Box, Button, Icon, Text } from '../UI'
 import { colors } from '../utils/colors'
 
 export const MyBookList = () => {
-  const { bookListByShelf } = useBookList({ loadBooksOnStart: true })
+  const { bookListByShelf, isLoading } = useBookList({ loadBooksOnStart: true })
   const { currentlyReading, wantToRead, read } = bookListByShelf
   const history = useHistory()
 
@@ -17,9 +17,13 @@ export const MyBookList = () => {
           MY BOOKS
         </Text>
       </Box>
-      <BookList books={currentlyReading} title='Currently Reading' />
-      <BookList books={wantToRead} title='Want to Read' />
-      <BookList books={read} title='Read' />
+      <BookList
+        books={currentlyReading}
+        title='Currently Reading'
+        isLoading={isLoading}
+      />
+      <BookList books={wantToRead} title='Want to Read' isLoading={isLoading} />
+      <BookList books={read} title='Read' isLoading={isLoading} />
       <Box position='fixed' bottom='50px' right='30px' display='flex'>
         <Button
           borderRadius='100%'

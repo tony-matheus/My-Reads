@@ -7,16 +7,14 @@ import {
 } from '../context/actions'
 import { useBooksContext } from '../context/books'
 import { getAll, search, update } from '../services/booksAPI'
-
-const SHELF_TYPES = ['currentlyReading', 'wantToRead', 'read', 'none']
-const [CURRENTLY_READING, NONE] = SHELF_TYPES
+import { CURRENTLY_READING, NONE, SHELF_TYPES } from '../utils/constants'
 
 export const useBookList = ({ loadBooksOnStart } = {}) => {
   const [{ books, bookListByShelf, isBooksLoaded }, dispatch] =
     useBooksContext()
 
   const [searchedBooks, setSearchedBooks] = useState([])
-  const [isLoading, setIsLoading] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   const getAllBooks = () => {
     setIsLoading(true)

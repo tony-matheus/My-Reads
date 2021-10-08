@@ -22,6 +22,10 @@ export const Book = ({ book, thumbnail, authorName, shelf, isSearched }) => {
     useBookList()
 
   const handleChange = (newShelf) => {
+    if (newShelf === shelf) {
+      return
+    }
+
     if (newShelf === NONE) {
       return removeBookFromList(book, shelf)
     }
