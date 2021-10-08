@@ -23,7 +23,7 @@ export const SearchInput = ({ onSearch }) => {
   }
 
   return (
-    <Box>
+    <Box width='100%'>
       <Input value={text} onChange={handleChange} />
     </Box>
   )

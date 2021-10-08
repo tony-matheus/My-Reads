@@ -16,7 +16,7 @@ import {
   verticalAlign,
   zIndex,
 } from 'styled-system'
-import { colors } from '../utils/colors'
+import { colors } from '../../utils/colors'
 
 const buttonTypes = {
   primary: css`

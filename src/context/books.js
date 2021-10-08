@@ -28,27 +28,29 @@ function booksReducer(state, action) {
   return cond([
     [
       equals(ACTIONS.setBookList),
-      () => ({ ...state, bookList: payload.bookList, isBooksLoaded: true }),
-    ],
-    [
-      equals(ACTIONS.changeBookShelf),
       () => ({
         ...state,
-        bookList: _moveItem(state, payload),
+        bookListByShelf: payload.bookListByShelf,
+        isBooksLoaded: true,
+        bookIds: payload.bookIds,
+        books: payload.books,
       }),
     ],
+    [equals(ACTIONS.changeBookShelf), () => _moveItem(state, payload)],
     [
       equals(ACTIONS.removeBook),
-      () => () => ({
+      () => ({
         ...state,
-        bookList: _removeItem(state, payload),
+        bookListByShelf: _removeItem(state, payload),
+        books: state.books.filter((b) => b.id !== payload.book.id),
       }),
     ],
     [
-      equals(ACTIONS.addItem),
+      equals(ACTIONS.addBook),
       () => ({
         ...state,
-        bookList: _addItem(state, payload),
+        bookListByShelf: _addItem(state, payload),
+        books: [...state.books, { ...payload.book, shelf: payload.shelf }],
       }),
     ],
     [
@@ -62,11 +64,13 @@ function booksReducer(state, action) {
 
 function BooksProvider({ children }) {
   const initialState = {
-    bookList: {
+    bookListByShelf: {
       [CURRENTLY_READING]: [],
       [WANT_TO_READ]: [],
       [READ]: [],
     },
+    books: [],
+    bookIds: [],
     isBooksLoaded: false,
     isLoading: false,
     searchedBooks: [],

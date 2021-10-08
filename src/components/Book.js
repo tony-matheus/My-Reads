@@ -1,9 +1,37 @@
-import { faBook } from '@fortawesome/free-solid-svg-icons'
+import styled from 'styled-components'
+import { faBook, faPlus } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { Box, Text, Image, Icon } from '../UI'
 import { colors } from '../utils/colors'
+import { NONE, SHELF_OPTIONS } from '../utils/constants'
+import { useBookList } from '../hooks/useBookList'
 
-export const Book = ({ title, authorName, subtitle, thumbnail }) => {
+const Select = styled.select`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 2;
+  opacity: 0;
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+`
+
+export const Book = ({ book, thumbnail, authorName, shelf, isSearched }) => {
+  const { title, subtitle } = book
+  const { handleChangeBookShelf, addBookToList, removeBookFromList } =
+    useBookList()
+
+  const handleChange = (newShelf) => {
+    if (newShelf === NONE) {
+      return removeBookFromList(book, shelf)
+    }
+
+    if (isSearched && shelf === NONE) {
+      return addBookToList(book, newShelf)
+    }
+    handleChangeBookShelf({ ...book, shelf }, newShelf)
+  }
+
   return (
     <>
       <Box
@@ -32,13 +60,6 @@ export const Book = ({ title, authorName, subtitle, thumbnail }) => {
             mx='auto'
             alt='book image'
           />
-          <Box
-            position='absolute'
-            bg='red'
-            top='10px'
-            width='10px'
-            height='10px'
-          />
         </Box>
         <Box>
           <Box
@@ -63,19 +84,47 @@ export const Book = ({ title, authorName, subtitle, thumbnail }) => {
             </Text>
           </Box>
         </Box>
+
+        <Box position='absolute' top='200px' right='30px' display='flex'>
+          <Select
+            value={shelf}
+            onChange={(opt) => handleChange(opt.target.value)}
+          >
+            {SHELF_OPTIONS.map((shelfOption) => (
+              <option key={shelfOption.code} value={shelfOption.code}>
+                {shelfOption.name}
+              </option>
+            ))}
+          </Select>
+          <Box
+            bg={colors.blue.default}
+            display='flex'
+            justifyContent='center'
+            borderRadius='100%'
+            textAlign='center'
+            p={2}
+          >
+            <Icon icon={faPlus} alt='plus icon' color={colors.white} />
+          </Box>
+        </Box>
       </Box>
     </>
   )
 }
 
 Book.defaultProps = {
-  subtitle: '',
   authorName: '',
+  shelf: NONE,
+  isSearched: false,
 }
 
 Book.propTypes = {
-  title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string,
+  book: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string,
+  }).isRequired,
   authorName: PropTypes.string,
   thumbnail: PropTypes.string.isRequired,
+  shelf: PropTypes.string,
+  isSearched: PropTypes.bool,
 }
