@@ -3,10 +3,11 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { BookList } from '../components/BookList'
 import { SearchInput } from '../components/SearchInput'
 import { useBookList } from '../hooks/useBookList'
-import { Box, Button, Icon } from '../UI'
+import { Box, Button, Icon, Text } from '../UI'
+import { colors } from '../utils/colors'
 
 export const Search = () => {
-  const { searchedBooks, searchBook } = useBookList()
+  const { searchedBooks, error, searchBook } = useBookList()
   const history = useHistory()
 
   return (
@@ -17,7 +18,18 @@ export const Search = () => {
         </Button>
         <SearchInput onSearch={searchBook} />
       </Box>
-      <BookList books={searchedBooks} isSearched />
+      {error ? (
+        <Text
+          color={colors.red.default}
+          fontSize={30}
+          textAlign='center'
+          fontWeight='bold'
+        >
+          {error}
+        </Text>
+      ) : (
+        <BookList books={searchedBooks} isSearched />
+      )}
     </Box>
   )
 }

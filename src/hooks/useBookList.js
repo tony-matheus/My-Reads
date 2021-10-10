@@ -14,6 +14,7 @@ export const useBookList = ({ loadBooksOnStart } = {}) => {
     useBooksContext()
 
   const [searchedBooks, setSearchedBooks] = useState([])
+  const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
   const getAllBooks = () => {
@@ -65,6 +66,11 @@ export const useBookList = ({ loadBooksOnStart } = {}) => {
     setIsLoading(true)
     search(text).then((newSearchedBooks) => {
       setIsLoading(false)
+      if (newSearchedBooks?.error) {
+        setError('Books not found, please try another search')
+        return setSearchedBooks(newSearchedBooks.items)
+      }
+      setError(null)
       setSearchedBooks(newSearchedBooks)
     })
   }
@@ -74,6 +80,7 @@ export const useBookList = ({ loadBooksOnStart } = {}) => {
     bookListByShelf,
     searchedBooks,
     isLoading,
+    error,
     searchBook,
     handleChangeBookShelf,
     addBookToList,
