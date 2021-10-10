@@ -27,13 +27,13 @@ export const BookList = ({ books, title, isSearched, isLoading }) => {
         'loading ...'
       ) : (
         <Box display='flex' justifyContent='center' flexWrap='wrap'>
-          {books.map((book) => {
+          {(books || []).map((book) => {
             return (
               <Book
                 key={book.id}
                 book={book}
                 isSearched={isSearched}
-                authorName={book?.authors?.[0]}
+                authorNames={book?.authors}
                 thumbnail={book?.imageLinks?.thumbnail}
                 shelf={
                   isSearched

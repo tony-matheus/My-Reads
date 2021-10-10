@@ -16,7 +16,7 @@ const Select = styled.select`
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
 `
 
-export const Book = ({ book, thumbnail, authorName, shelf, isSearched }) => {
+export const Book = ({ book, thumbnail, authorNames, shelf, isSearched }) => {
   const { title, subtitle } = book
   const { handleChangeBookShelf, addBookToList, removeBookFromList } =
     useBookList()
@@ -83,8 +83,15 @@ export const Book = ({ book, thumbnail, authorName, shelf, isSearched }) => {
                 {subtitle}
               </Text>
             )}
+
             <Text as='span' fontSize='14px'>
-              Author: {authorName}
+              Authors:{' '}
+              {authorNames.map(
+                (authorName, index) =>
+                  `${authorName} ${
+                    authorNames.length === index + 1 ? '.' : ', '
+                  }`
+              )}
             </Text>
           </Box>
         </Box>
@@ -117,7 +124,7 @@ export const Book = ({ book, thumbnail, authorName, shelf, isSearched }) => {
 }
 
 Book.defaultProps = {
-  authorName: '',
+  authorNames: [],
   shelf: NONE,
   isSearched: false,
 }
@@ -127,7 +134,7 @@ Book.propTypes = {
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string,
   }).isRequired,
-  authorName: PropTypes.string,
+  authorNames: PropTypes.arrayOf(PropTypes.string),
   thumbnail: PropTypes.string.isRequired,
   shelf: PropTypes.string,
   isSearched: PropTypes.bool,
