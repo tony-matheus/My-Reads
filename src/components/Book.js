@@ -48,23 +48,25 @@ export const Book = ({ book, thumbnail, authorNames, shelf, isSearched }) => {
         borderRadius={5}
         bg={colors.white}
       >
-        <Box
-          display='inline-flex'
-          position='relative'
-          overflow='hidden'
-          height='15rem'
-          mt={-30}
-          borderRadius={5}
-          boxShadow='0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);'
-        >
-          <Image
-            src={thumbnail}
-            width='10rem'
-            height='100%'
-            mx='auto'
-            alt='book image'
-          />
-        </Box>
+        {thumbnail && (
+          <Box
+            display='inline-flex'
+            position='relative'
+            overflow='hidden'
+            height='15rem'
+            mt={-30}
+            borderRadius={5}
+            boxShadow='0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);'
+          >
+            <Image
+              src={thumbnail}
+              width='10rem'
+              height='100%'
+              mx='auto'
+              alt='book image'
+            />
+          </Box>
+        )}
         <Box>
           <Box
             display='flex'
@@ -127,6 +129,7 @@ Book.defaultProps = {
   authorNames: [],
   shelf: NONE,
   isSearched: false,
+  thumbnail: null,
 }
 
 Book.propTypes = {
@@ -135,7 +138,7 @@ Book.propTypes = {
     subtitle: PropTypes.string,
   }).isRequired,
   authorNames: PropTypes.arrayOf(PropTypes.string),
-  thumbnail: PropTypes.string.isRequired,
+  thumbnail: PropTypes.string,
   shelf: PropTypes.string,
   isSearched: PropTypes.bool,
 }
